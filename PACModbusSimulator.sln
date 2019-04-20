@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PACModbusSimulator", "PACModbusSimulator\PACModbusSimulator.csproj", "{B9154AD3-EDB9-4F2A-8B0C-B24F81D3CD13}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9154AD3-EDB9-4F2A-8B0C-B24F81D3CD13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9154AD3-EDB9-4F2A-8B0C-B24F81D3CD13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9154AD3-EDB9-4F2A-8B0C-B24F81D3CD13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9154AD3-EDB9-4F2A-8B0C-B24F81D3CD13}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B431D13B-B6D0-4A30-8F02-51DF05C2E1B1}
+	EndGlobalSection
+EndGlobal

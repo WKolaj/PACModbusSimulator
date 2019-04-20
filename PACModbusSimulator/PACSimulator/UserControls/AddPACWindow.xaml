@@ -1,0 +1,51 @@
+﻿<Window x:Class="PACModbusSimulator.AddPACWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PACModbusSimulator"
+        mc:Ignorable="d"
+        Title="Add new PAC meter" ResizeMode="NoResize" Height="400" Width="225" Icon="/PACModbusSimulator;component/PAC3200.ico" >
+    <Window.Resources>
+        <local:Int32ToStringConverter x:Key="Int32ToStringConverter"/>
+        <local:SingleToStringConverter x:Key="SingleToStringConverter"/>
+    </Window.Resources>
+    <Border x:Name="mainBorder" BorderThickness="3" BorderBrush="#33344F">
+        <Grid x:Name="mainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.ColumnSpan="2" x:Name="pacTypeLabel" Content="Meter type" Margin="5,5,5,0" VerticalContentAlignment="Bottom"/>
+            <ComboBox VerticalContentAlignment="Center" Grid.Row="1" Padding="2" Grid.ColumnSpan="2" x:Name="pacTypeComboBox" Margin="5" ItemsSource="{Binding AllPACTypes}" SelectedItem="{Binding SelectedPACType, Mode=TwoWay}" Text="Select Option"/>
+
+            <Label Grid.Row="2" Grid.ColumnSpan="2" x:Name="pacNameLabel" Content="Name" Margin="5,5,5,0" VerticalContentAlignment="Bottom"/>
+            <TextBox VerticalContentAlignment="Center" Grid.Row="3" Padding="2" Grid.ColumnSpan="2" x:Name="pacNameTextBox" Margin="5" Text="{Binding Path=PACName, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Grid.Row="4" Grid.ColumnSpan="2" x:Name="portNameLabel" Content="Port number" Margin="5,5,5,0" VerticalContentAlignment="Bottom"/>
+            <TextBox  VerticalContentAlignment="Center" Grid.Row="5"  Padding="2" Grid.ColumnSpan="2" x:Name="portNameTextBox" Margin="5" Text="{Binding Path=PortNumber, Converter={StaticResource Int32ToStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <Label Grid.Row="6" Grid.ColumnSpan="2" x:Name="nominalCurrentNameLabel" Content="Nominal current [A]" Margin="5,5,5,0" VerticalContentAlignment="Bottom"/>
+            <TextBox VerticalContentAlignment="Center" Grid.Row="7"  Padding="2" Grid.ColumnSpan="2" x:Name="nominalCurrentNameTextBox" Margin="5" Text="{Binding Path=NominalCurrent, Converter={StaticResource SingleToStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Grid.Row="8" Grid.ColumnSpan="2" x:Name="nominalPowerFactorNameLabel" Content="Nominal power factor" Margin="5,5,5,0" VerticalContentAlignment="Bottom"/>
+            <TextBox  VerticalContentAlignment="Center" Grid.Row="9" Padding="2" Grid.ColumnSpan="2" x:Name="nominalPowerFactorNameTextBox" Margin="5" Text="{Binding Path=NominalPowerFactor, Converter={StaticResource SingleToStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Button x:Name="addButton" IsEnabled="{Binding Path=Ready}" Grid.Row="10" Grid.Column="0" Content="Add new meter" Margin="5" Click="AddButton_Click"/>
+            <Button x:Name="cancelButton" Grid.Row="10" Grid.Column="1" Content="Cancel" Margin="5" Click="CancelButton_Click"/>
+        </Grid>
+    </Border>
+</Window>

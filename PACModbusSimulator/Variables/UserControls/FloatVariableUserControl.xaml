@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="PACModbusSimulator.FloatVariableUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PACModbusSimulator"
+             mc:Ignorable="d" 
+             Height="200"
+             Width="175">
+    <UserControl.Resources>
+        <local:DoubleToSingleConverter x:Key="DoubleToSingleConverter"/>
+        <local:SingleToStringConverter x:Key="StringToSingleConverter"/>
+    </UserControl.Resources>
+    <Border x:Name="mainBorder" BorderThickness="3" BorderBrush="#33344F">
+        <Grid x:Name="mainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Border x:Name="topBorder" Grid.Row="0" Background="#33344F">
+                <Label x:Name="mainLabel" Content="{Binding Path=Name}" Foreground="White" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"  />
+            </Border>
+            <Border x:Name="centerBorder" Grid.Row="1" Background="#FFFFFF" IsEnabled="{Binding Path=ManualInserting}">
+                <Grid x:Name="valueGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Slider x:Name="variableSlider" Value="{Binding Path=Value, Converter={StaticResource DoubleToSingleConverter}}" Orientation="Vertical" Grid.RowSpan="3" Margin="5" Maximum="{Binding Path=RandomMax, Converter={StaticResource DoubleToSingleConverter}}" Minimum="{Binding Path=RandomMin, Converter={StaticResource DoubleToSingleConverter}}"/>
+                    <Label x:Name="maxLabel" Content="Max" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="maxTextBox" Text="{Binding Path=RandomMax, Converter={StaticResource StringToSingleConverter}}" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <Label x:Name="valueLabel" Content="Value" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
+                    <TextBox x:Name="valueTextBox" Text="{Binding Path=Value, Converter={StaticResource StringToSingleConverter}}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <Label x:Name="minLabel" Content="Min" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
+                    <TextBox x:Name="minTextBox" Text="{Binding Path=RandomMin, Converter={StaticResource StringToSingleConverter}}" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                </Grid>
+            </Border>
+            <Border x:Name="bottomBorder" Grid.Row="2" Background="#EAE9EA" Padding="2">
+                <Grid x:Name="bottomGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <CheckBox x:Name="autoCheckBox" Content="Auto calculation" Foreground="#000000" IsChecked="{Binding Path=AutoCalculation}" Grid.Row="0" Margin="2"  />
+                    <CheckBox x:Name="randomCheckBox" Content="Random generation" Foreground="#000000" IsChecked="{Binding Path=RandomGeneration}" Grid.Row="1" Margin="2" />
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

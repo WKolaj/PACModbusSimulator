@@ -1,0 +1,134 @@
+﻿<UserControl x:Class="PACModbusSimulator.BitCollectionUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PACModbusSimulator"
+             mc:Ignorable="d" 
+             Height="200"
+             Width="175">
+    <Border x:Name="mainBorder" BorderThickness="3" BorderBrush="#33344F">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border x:Name="topBorder" Grid.Row="0" Background="#33344F" Grid.ColumnSpan="8">
+                <Label x:Name="mainLabel" Content="{Binding Path=Name}" Foreground="White" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"  />
+            </Border>
+            <Label x:Name="bitLabel0" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Content=" 0" Grid.Column="0"   />
+            <CheckBox x:Name="bitCheckbox0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Checked="BitCheckbox0_Checked" Unchecked="BitCheckbox0_Unchecked"  />
+
+            <Label x:Name="bitLabel1" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Content=" 1" Grid.Column="0"   />
+            <CheckBox x:Name="bitCheckbox1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Checked="BitCheckbox1_Checked" Unchecked="BitCheckbox1_Unchecked"  />
+
+            <Label x:Name="bitLabel2" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Content=" 2" Grid.Column="0"   />
+            <CheckBox x:Name="bitCheckbox2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Checked="BitCheckbox2_Checked" Unchecked="BitCheckbox2_Unchecked"  />
+
+            <Label x:Name="bitLabel3" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4" Content=" 3" Grid.Column="0"   />
+            <CheckBox x:Name="bitCheckbox3" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Checked="BitCheckbox3_Checked" Unchecked="BitCheckbox3_Unchecked"  />
+
+            <Label x:Name="bitLabel4" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5" Content=" 4" Grid.Column="0"   />
+            <CheckBox x:Name="bitCheckbox4" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="5" Grid.Column="1" Checked="BitCheckbox4_Checked" Unchecked="BitCheckbox4_Unchecked"  />
+
+            <Label x:Name="bitLabel5" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6" Content=" 5" Grid.Column="0"   />
+            <CheckBox x:Name="bitCheckbox5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" Checked="BitCheckbox5_Checked" Unchecked="BitCheckbox5_Unchecked"  />
+
+            <Label x:Name="bitLabel6" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7" Content=" 6" Grid.Column="0"   />
+            <CheckBox x:Name="bitCheckbox6" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="7" Grid.Column="1" Checked="BitCheckbox6_Checked" Unchecked="BitCheckbox6_Unchecked"  />
+
+            <Label x:Name="bitLabel7" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8" Content=" 7" Grid.Column="0"   />
+            <CheckBox x:Name="bitCheckbox7" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="8" Grid.Column="1" Checked="BitCheckbox7_Checked" Unchecked="BitCheckbox7_Unchecked"  />
+
+            <Label x:Name="bitLabel8" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Content=" 8" Grid.Column="2"   />
+            <CheckBox x:Name="bitCheckbox8" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="3" Checked="BitCheckbox8_Checked" Unchecked="BitCheckbox8_Unchecked"  />
+
+            <Label x:Name="bitLabel9" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Content=" 9" Grid.Column="2"   />
+            <CheckBox x:Name="bitCheckbox9" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="3" Checked="BitCheckbox9_Checked" Unchecked="BitCheckbox9_Unchecked"  />
+
+            <Label x:Name="bitLabel10" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Content="10" Grid.Column="2"   />
+            <CheckBox x:Name="bitCheckbox10" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Grid.Column="3" Checked="BitCheckbox10_Checked" Unchecked="BitCheckbox10_Unchecked"  />
+
+            <Label x:Name="bitLabel11" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4" Content="11" Grid.Column="2"   />
+            <CheckBox x:Name="bitCheckbox11" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Grid.Column="3" Checked="BitCheckbox11_Checked" Unchecked="BitCheckbox11_Unchecked"  />
+
+            <Label x:Name="bitLabel12" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5" Content="12" Grid.Column="2"   />
+            <CheckBox x:Name="bitCheckbox12" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="5" Grid.Column="3" Checked="BitCheckbox12_Checked" Unchecked="BitCheckbox12_Unchecked"  />
+
+            <Label x:Name="bitLabel13" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6" Content="13" Grid.Column="2"   />
+            <CheckBox x:Name="bitCheckbox13" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="6" Grid.Column="3" Checked="BitCheckbox13_Checked" Unchecked="BitCheckbox13_Unchecked"  />
+
+            <Label x:Name="bitLabel14" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7" Content="14" Grid.Column="2"   />
+            <CheckBox x:Name="bitCheckbox14" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Row="7" Grid.Column="3" Checked="BitCheckbox14_Checked" Unchecked="BitCheckbox14_Unchecked"  />
+
+            <Label x:Name="bitLabel15" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8" Content="15" Grid.Column="2"   />
+            <CheckBox x:Name="bitCheckbox15" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="8" Grid.Column="3" Checked="BitCheckbox15_Checked" Unchecked="BitCheckbox15_Unchecked"  />
+
+            <Label x:Name="bitLabel16" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Content="16" Grid.Column="4"   />
+            <CheckBox x:Name="bitCheckbox16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="5" Checked="BitCheckbox16_Checked" Unchecked="BitCheckbox16_Unchecked"  />
+
+            <Label x:Name="bitLabel17" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Content="17" Grid.Column="4"   />
+            <CheckBox x:Name="bitCheckbox17" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="5" Checked="BitCheckbox17_Checked" Unchecked="BitCheckbox17_Unchecked"  />
+
+            <Label x:Name="bitLabel18" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Content="18" Grid.Column="4"   />
+            <CheckBox x:Name="bitCheckbox18" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Grid.Column="5" Checked="BitCheckbox18_Checked" Unchecked="BitCheckbox18_Unchecked"  />
+
+            <Label x:Name="bitLabel19" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4" Content="19" Grid.Column="4"   />
+            <CheckBox x:Name="bitCheckbox19" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Grid.Column="5" Checked="BitCheckbox19_Checked" Unchecked="BitCheckbox19_Unchecked"  />
+
+            <Label x:Name="bitLabel20" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5" Content="20" Grid.Column="4"   />
+            <CheckBox x:Name="bitCheckbox20" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="5" Grid.Column="5" Checked="BitCheckbox20_Checked" Unchecked="BitCheckbox20_Unchecked"  />
+
+            <Label x:Name="bitLabel21" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6" Content="21" Grid.Column="4"   />
+            <CheckBox x:Name="bitCheckbox21" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="6" Grid.Column="5" Checked="BitCheckbox21_Checked" Unchecked="BitCheckbox21_Unchecked"  />
+
+            <Label x:Name="bitLabel22" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7" Content="22" Grid.Column="4"   />
+            <CheckBox x:Name="bitCheckbox22" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="7" Grid.Column="5" Checked="BitCheckbox22_Checked" Unchecked="BitCheckbox22_Unchecked"  />
+
+            <Label x:Name="bitLabel23" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8" Content="23" Grid.Column="4"   />
+            <CheckBox x:Name="bitCheckbox23" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="8" Grid.Column="5" Checked="BitCheckbox23_Checked" Unchecked="BitCheckbox23_Unchecked"  />
+
+            <Label x:Name="bitLabel24" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Content="24" Grid.Column="6"   />
+            <CheckBox x:Name="bitCheckbox24" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="7" Checked="BitCheckbox24_Checked" Unchecked="BitCheckbox24_Unchecked"  />
+
+            <Label x:Name="bitLabel25" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Content="25" Grid.Column="6"   />
+            <CheckBox x:Name="bitCheckbox25" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="7" Checked="BitCheckbox25_Checked" Unchecked="BitCheckbox25_Unchecked"  />
+
+            <Label x:Name="bitLabel26" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Content="26" Grid.Column="6"   />
+            <CheckBox x:Name="bitCheckbox26" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Grid.Column="7" Checked="BitCheckbox26_Checked" Unchecked="BitCheckbox26_Unchecked"  />
+
+            <Label x:Name="bitLabel27" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4" Content="27" Grid.Column="6"   />
+            <CheckBox x:Name="bitCheckbox27" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Grid.Column="7" Checked="BitCheckbox27_Checked" Unchecked="BitCheckbox27_Unchecked"  />
+
+            <Label x:Name="bitLabel28" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5" Content="28" Grid.Column="6"   />
+            <CheckBox x:Name="bitCheckbox28" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="5" Grid.Column="7" Checked="BitCheckbox28_Checked" Unchecked="BitCheckbox28_Unchecked"  />
+
+            <Label x:Name="bitLabel29" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6" Content="29" Grid.Column="6"   />
+            <CheckBox x:Name="bitCheckbox29" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="6" Grid.Column="7" Checked="BitCheckbox29_Checked" Unchecked="BitCheckbox29_Unchecked"  />
+
+            <Label x:Name="bitLabel30" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7" Content="30" Grid.Column="6"   />
+            <CheckBox x:Name="bitCheckbox30" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="7" Grid.Column="7" Checked="BitCheckbox30_Checked" Unchecked="BitCheckbox30_Unchecked"  />
+
+            <Label x:Name="bitLabel31" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8" Content="31" Grid.Column="6"   />
+            <CheckBox x:Name="bitCheckbox31" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="8" Grid.Column="7" Checked="BitCheckbox31_Checked" Unchecked="BitCheckbox31_Unchecked"  />
+            
+        </Grid>
+    </Border>
+</UserControl>

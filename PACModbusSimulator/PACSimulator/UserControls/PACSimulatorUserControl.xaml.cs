@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace PACModbusSimulator
 {
     /// <summary>
-    /// Interaction logic for SimulatorUserControl.xaml
+    /// Interaction logic for PAC3200SimulatorUserControl.xaml
     /// </summary>
     public partial class PACSimulatorUserControl : UserControl
     {
@@ -95,6 +95,16 @@ namespace PACModbusSimulator
                 case PACSimulator.pac3200String:
                     {
                         Simulator.CreatePAC3200Meter(name, portNumber, nominalCurrent, nominalPowerFactor);
+                        break;
+                    }
+                case PACSimulator.pac3220String:
+                    {
+                        Simulator.CreatePAC3220Meter(name, portNumber, nominalCurrent, nominalPowerFactor);
+                        break;
+                    }
+                case PACSimulator.pac4200String:
+                    {
+                        Simulator.CreatePAC4200Meter(name, portNumber, nominalCurrent, nominalPowerFactor);
                         break;
                     }
             }

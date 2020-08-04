@@ -190,7 +190,9 @@ namespace PACModbusSimulator
 
             this.AllPACTypes = new List<string>()
             {
-                PACSimulator.pac3200String
+                PACSimulator.pac3200String,
+                PACSimulator.pac3220String,
+                PACSimulator.pac4200String
             };
 
             this.SelectedPACType = AllPACTypes.First();

@@ -31,6 +31,16 @@ namespace PACModbusSimulator
         public const String pac3200String = "PAC3200";
 
         /// <summary>
+        /// String representing PAC3220 meter
+        /// </summary>
+        public const String pac3220String = "PAC3220";
+
+        /// <summary>
+        /// String representing PAC4200 meter
+        /// </summary>
+        public const String pac4200String = "PAC4200";
+
+        /// <summary>
         /// Method for initializing PACSimulator
         /// </summary>
         public void Init()
@@ -95,6 +105,30 @@ namespace PACModbusSimulator
         public void CreatePAC3200Meter(string name, int portNumber, Single nominalCurrent, Single nominialPowerFactor)
         {
             AddMeter(new PAC3200(this,name,portNumber, nominalCurrent ,nominialPowerFactor));
+        }
+
+        /// <summary>
+        /// Method for creating new PAC3220 meter and adding it to AllMeters
+        /// </summary>
+        /// <param name="name">Name of device</param>
+        /// <param name="portNumber">Port number</param>
+        /// <param name="nominalCurrent">Nominal current</param>
+        /// <param name="nominialPowerFactor">Nominal power factor</param>
+        public void CreatePAC3220Meter(string name, int portNumber, Single nominalCurrent, Single nominialPowerFactor)
+        {
+            AddMeter(new PAC3220(this, name, portNumber, nominalCurrent, nominialPowerFactor));
+        }
+
+        /// <summary>
+        /// Method for creating new PAC4200 meter and adding it to AllMeters
+        /// </summary>
+        /// <param name="name">Name of device</param>
+        /// <param name="portNumber">Port number</param>
+        /// <param name="nominalCurrent">Nominal current</param>
+        /// <param name="nominialPowerFactor">Nominal power factor</param>
+        public void CreatePAC4200Meter(string name, int portNumber, Single nominalCurrent, Single nominialPowerFactor)
+        {
+            AddMeter(new PAC4200(this, name, portNumber, nominalCurrent, nominialPowerFactor));
         }
 
         /// <summary>

@@ -62,7 +62,9 @@ namespace PACModbusSimulator
         const string reactiveEnergyExportTarif2Name = "Reactive energy export T1";
         const string apparentEnergyTarif1Name = "Apparent energy T1";
         const string apparentEnergyTarif2Name = "Apparent energy T2";
-        
+        const string digitalInputStateName = "Digital Inputs";
+        const string digitalOutputStateName = "Digital Outputs";
+
         #endregion constants
 
         #region variables
@@ -116,6 +118,8 @@ namespace PACModbusSimulator
         FloatVariable ReactiveEnergyExportTarif2 { get { return (FloatVariable)Variables[reactiveEnergyExportTarif2Name]; } }
         FloatVariable ApparentEnergyTarif1 { get { return (FloatVariable)Variables[apparentEnergyTarif1Name]; } }
         FloatVariable ApparentEnergyTarif2 { get { return (FloatVariable)Variables[apparentEnergyTarif2Name]; } }
+        BitCollectionVariable DigitalInputState { get { return (BitCollectionVariable)Variables[digitalInputStateName]; } }
+        BitCollectionVariable DigitalOutputState { get { return (BitCollectionVariable)Variables[digitalOutputStateName]; } }
 
         #endregion variables
 
@@ -328,6 +332,8 @@ namespace PACModbusSimulator
             AddVariable(new FloatVariable(totalPowerFactorName, 70));
             AddVariable(new FloatVariable(unbalanceVoltageName, 72));
             AddVariable(new FloatVariable(unbalanceCurrentName, 74));
+            AddVariable(new BitCollectionVariable(digitalOutputStateName, 208));
+            AddVariable(new BitCollectionVariable(digitalInputStateName, 210));
             AddVariable(new FloatVariable(activeEnergyImportTarif1Name, 2802));
             AddVariable(new FloatVariable(activeEnergyImportTarif2Name, 2804));
             AddVariable(new FloatVariable(activeEnergyExportTarif1Name, 2806));

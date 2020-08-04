@@ -76,6 +76,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Meters\PAC4200.cs" />
+    <Compile Include="Variables\BitCollectionVariable.cs" />
+    <Compile Include="Meters\PAC3220.cs" />
+    <Compile Include="PACSimulator\UserControls\PACSimulatorUserControl.xaml.cs">
+      <DependentUpon>PACSimulatorUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PACSimulator\UserControls\AddPACWindow.xaml.cs">
       <DependentUpon>AddPACWindow.xaml</DependentUpon>
     </Compile>
@@ -95,11 +101,11 @@
     <Compile Include="Meters\UserControls\PACWindow.xaml.cs">
       <DependentUpon>PACWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PACSimulator\UserControls\PACSimulatorUserControl.xaml.cs">
-      <DependentUpon>PACSimulatorUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Meters\UserControls\MeterUserControl.xaml.cs">
       <DependentUpon>MeterUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Variables\UserControls\BitCollectionUserControl.xaml.cs">
+      <DependentUpon>BitCollectionUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Variables\UserControls\UInt16VariableUserControl.xaml.cs">
       <DependentUpon>UInt16VariableUserControl.xaml</DependentUpon>
@@ -123,6 +129,10 @@
     <Compile Include="Sampler\Sampler.cs" />
     <Compile Include="Variables\UInt32Variable.cs" />
     <Compile Include="Variables\VariableBase.cs" />
+    <Page Include="PACSimulator\UserControls\PACSimulatorUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PACSimulator\UserControls\AddPACWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -131,11 +141,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PACSimulator\UserControls\PACSimulatorUserControl.xaml">
+    <Page Include="Meters\UserControls\MeterUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Meters\UserControls\MeterUserControl.xaml">
+    <Page Include="Variables\UserControls\BitCollectionUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

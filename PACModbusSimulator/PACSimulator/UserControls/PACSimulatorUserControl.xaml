@@ -21,9 +21,9 @@
                 <Label x:Name="mainLabel" Content="PAC meter Modbus simulator" Foreground="White" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
             </Border>
 
-            <Border x:Name="centerBorder" Grid.Row="1" Background="#FFFFFF" IsEnabled="{Binding Path=ManualInserting}">
+            <Border x:Name="centerBorder" Grid.Row="1" Background="#FFFFFF">
                 <Grid x:Name="centerGrid">
-                    <ListBox x:Name="centerListBox" HorizontalContentAlignment="Stretch"  ItemsSource="{Binding Path=AllMeters}" SelectedItem="{Binding Path=CurrentMeter, Mode=TwoWay}" MouseDoubleClick="CenterListBox_MouseDoubleClick"  >
+                    <ListBox x:Name="centerListBox" HorizontalContentAlignment="Stretch"  ItemsSource="{Binding Path=AllMBDevices}" SelectedItem="{Binding Path=CurrentDevice, Mode=TwoWay}" MouseDoubleClick="CenterListBox_MouseDoubleClick"  >
                         <ListBox.ItemTemplate>
                             <DataTemplate >
                                 <Border HorizontalAlignment="Stretch" BorderThickness="3" BorderBrush="#33344F" Background="#EAE9EA" Padding="5" Margin="5">

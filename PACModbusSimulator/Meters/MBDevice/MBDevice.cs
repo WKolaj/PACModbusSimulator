@@ -1,15 +1,15 @@
-﻿using System;
+﻿using EasyModbus;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using System.Xml.Linq;
-using EasyModbus;
 
 namespace PACModbusSimulator
 {
-    public abstract class MeterBase: INotifyPropertyChanged
+    public abstract class MBDevice : INotifyPropertyChanged
     {
         /// <summary>
         /// Base class of Meter
@@ -17,7 +17,7 @@ namespace PACModbusSimulator
         /// <param name="simulator">Simulator associated with meter</param>
         /// <param name="name">Name of device</param>
         /// <param name="portNumber">Port number of device</param>
-        protected MeterBase(PACSimulator simulator, string name = "", Int32 portNumber = 502)
+        protected MBDevice(PACSimulator simulator, string name = "", Int32 portNumber = 502)
         {
             this.Simulator = simulator;
             this.Sampler = new Sampler(this);
@@ -81,7 +81,7 @@ namespace PACModbusSimulator
             }
         }
 
-        private Dictionary<String,VariableBase> _variables = new Dictionary<String, VariableBase>();
+        private Dictionary<String, VariableBase> _variables = new Dictionary<String, VariableBase>();
         /// <summary>
         /// All variables associated with meter
         /// </summary>
@@ -123,7 +123,7 @@ namespace PACModbusSimulator
             set
             {
                 //Checking if such port already exists
-                if(this.CheckPortNumber(value))
+                if (this.CheckPortNumber(value))
                 {
                     this.Server.Port = value;
                     OnPropertyChanged("PortNumber");
@@ -252,7 +252,7 @@ namespace PACModbusSimulator
         /// </param>
         public void Refresh(Int64 tickNumber)
         {
-            if(this.LastTickNumber == -1)
+            if (this.LastTickNumber == -1)
             {
                 initCalculation(tickNumber);
             }
@@ -298,9 +298,9 @@ namespace PACModbusSimulator
         /// </summary>
         protected virtual void RewriteValuesToRegisters()
         {
-            foreach(var variable in Variables.Values)
+            foreach (var variable in Variables.Values)
             {
-                if(variable.ShouldInsertToHR)
+                if (variable.ShouldInsertToHR)
                 {
                     variable.AssignValueToRegisters(HoldingRegisters);
                 }
@@ -355,14 +355,6 @@ namespace PACModbusSimulator
         }
 
         /// <summary>
-        /// Method for getting user control of meter
-        /// </summary>
-        /// <returns>
-        /// User control for meter
-        /// </returns>
-        public abstract UserControl GetUserControl();
-
-        /// <summary>
         /// Setting device from XML content
         /// </summary>
         /// <param name="element">
@@ -370,7 +362,7 @@ namespace PACModbusSimulator
         /// </param>
         public virtual void SetFromXML(XElement element)
         {
-            if(element.Attribute("Name") != null)
+            if (element.Attribute("Name") != null)
             {
                 this.Name = element.Attribute("Name").Value;
             }
@@ -405,9 +397,9 @@ namespace PACModbusSimulator
         /// </returns>
         private Boolean CheckPortNumber(Int32 portNumber)
         {
-            foreach(var meter in Simulator.AllMeters)
+            foreach (var meter in Simulator.AllMBDevices)
             {
-                if(meter.PortNumber == portNumber && meter != this)
+                if (meter.PortNumber == portNumber && meter != this)
                 {
                     return false;
                 }
@@ -416,19 +408,28 @@ namespace PACModbusSimulator
             return true;
         }
 
+
         /// <summary>
-        /// Event invoked when one of settings of meter has changed
+        /// Method for getting user control of meter
         /// </summary>
-        public event Action MeterSettingsChanged;
+        /// <returns>
+        /// User control for meter
+        /// </returns>
+        public abstract UserControl GetUserControl();
+
+        /// <summary>
+        /// Event invoked when one of settings of MBDevice has changed
+        /// </summary>
+        public event Action MBDeviceSettingsChanged;
 
         /// <summary>
         /// Method for invoking event of parameters change
         /// </summary>
         protected void InvokeSettingsChanged()
         {
-            if(MeterSettingsChanged != null)
+            if (MBDeviceSettingsChanged != null)
             {
-                MeterSettingsChanged();
+                MBDeviceSettingsChanged();
             }
         }
     }

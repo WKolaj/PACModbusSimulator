@@ -120,9 +120,9 @@ namespace PACModbusSimulator
             try
             {
 
-                if (Simulator.CurrentMeter != null)
+                if (Simulator.CurrentDevice != null)
                 {
-                    Simulator.RemoveMeter(Simulator.CurrentMeter);
+                    Simulator.RemoveDevice(Simulator.CurrentDevice);
                 }
 
             }
@@ -183,10 +183,10 @@ namespace PACModbusSimulator
         {
             try
             {
-                if (Simulator.CurrentMeter != null)
+                if (Simulator.CurrentDevice != null)
                 {
                     PACWindow window = new PACWindow();
-                    window.Init(Simulator.CurrentMeter);
+                    window.Init(Simulator.CurrentDevice);
 
                     window.ShowDialog();
                 }

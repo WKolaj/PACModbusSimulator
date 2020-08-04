@@ -76,6 +76,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Meters\MBDevice\MBDevice.cs" />
     <Compile Include="Meters\PAC4200.cs" />
     <Compile Include="Variables\BitCollectionVariable.cs" />
     <Compile Include="Meters\PAC3220.cs" />
@@ -183,7 +184,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Meters\MeterBase.cs" />
+    <Compile Include="Meters\MBDevice\TCPMeterBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -14,9 +14,9 @@ namespace PACModbusSimulator
         /// </summary>
         /// <param name="meter">Meter connected to sampler</param>
         /// <param name="samplingTime">Sample time</param>
-        public Sampler(MeterBase meter, Double samplingTime = 1000)
+        public Sampler(MBDevice meter, Double samplingTime = 1000)
         {
-            this.Meter = meter;
+            this.MBDevice = meter;
             this.TickTimer = new Timer(samplingTime);
             this.TickTimer.Elapsed += TickTimer_Elapsed;
         }
@@ -32,7 +32,7 @@ namespace PACModbusSimulator
             DateTime current = DateTime.Now;
             TimeSpan span = current - dt1970;
             
-            Meter.Refresh(Convert.ToInt64(span.TotalMilliseconds));
+            MBDevice.Refresh(Convert.ToInt64(span.TotalMilliseconds));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -45,11 +45,11 @@ namespace PACModbusSimulator
                 handler(this, new PropertyChangedEventArgs(name));
             }
         }
-        private MeterBase _meter = null;
+        private MBDevice _meter = null;
         /// <summary>
         /// Meter associated with sampler
         /// </summary>
-        public MeterBase Meter
+        public MBDevice MBDevice
         {
             get
             {

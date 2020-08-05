@@ -1,11 +1,15 @@
-﻿using EasyModbus;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Windows.Controls;
 using System.Xml.Linq;
+using Modbus.Device;
+using Modbus.Data;
 
 namespace PACModbusSimulator
 {
@@ -19,11 +23,13 @@ namespace PACModbusSimulator
         /// <param name="portNumber">Port number of device</param>
         protected MBDevice(PACSimulator simulator, string name = "", Int32 portNumber = 502)
         {
+
+            this.DataStore = DataStoreFactory.CreateDefaultDataStore();
             this.Simulator = simulator;
             this.Sampler = new Sampler(this);
-            this.Server = new ModbusServer();
             this.PortNumber = portNumber;
             this.Name = name;
+
         }
 
         /// <summary>
@@ -110,6 +116,7 @@ namespace PACModbusSimulator
             }
         }
 
+        private Int32 _portNumber = 502;
         /// <summary>
         /// Port number of meter
         /// </summary>
@@ -117,7 +124,7 @@ namespace PACModbusSimulator
         {
             get
             {
-                return this.Server.Port;
+                return _portNumber;
             }
 
             set
@@ -125,7 +132,7 @@ namespace PACModbusSimulator
                 //Checking if such port already exists
                 if (this.CheckPortNumber(value))
                 {
-                    this.Server.Port = value;
+                    this._portNumber = value;
                     OnPropertyChanged("PortNumber");
                     InvokeSettingsChanged();
                 }
@@ -168,11 +175,11 @@ namespace PACModbusSimulator
 
         }
 
-        private ModbusServer _server = null;
+        private ModbusSlave _server = null;
         /// <summary>
         /// Modbus server representing device
         /// </summary>
-        public ModbusServer Server
+        public ModbusSlave Server
         {
             get
             {
@@ -183,6 +190,42 @@ namespace PACModbusSimulator
             {
                 this._server = value;
                 OnPropertyChanged("Server");
+            }
+        }
+
+        private TcpListener _tcpListner = null;
+        /// <summary>
+        /// TCP Listner of Modbus server
+        /// </summary>
+        public TcpListener TCPListner
+        {
+            get
+            {
+                return _tcpListner;
+            }
+
+            private set
+            {
+                this._tcpListner = value;
+                OnPropertyChanged("TCPListner");
+            }
+        }
+
+        private DataStore _dataStore = null;
+        /// <summary>
+        /// DataStore for modbus server
+        /// </summary>
+        public DataStore DataStore
+        {
+            get
+            {
+                return _dataStore;
+            }
+
+            private set
+            {
+                this._dataStore = value;
+                OnPropertyChanged("DataStore");
             }
         }
 
@@ -225,24 +268,26 @@ namespace PACModbusSimulator
         /// <summary>
         /// Modbus holding registers of device
         /// </summary>
-        public ModbusServer.HoldingRegisters HoldingRegisters
+        public ModbusDataCollection<ushort> HoldingRegisters
         {
             get
             {
-                return Server.holdingRegisters;
+                return DataStore.HoldingRegisters;
             }
         }
 
         /// <summary>
         /// Modbus input registers representing device
         /// </summary>
-        public ModbusServer.InputRegisters InputRegisters
+        public ModbusDataCollection<ushort> InputRegisters
         {
             get
             {
-                return Server.inputRegisters;
+                return DataStore.InputRegisters;
             }
         }
+
+        
 
         /// <summary>
         /// Method for refreshing device
@@ -339,7 +384,15 @@ namespace PACModbusSimulator
         /// </summary>
         public void Start()
         {
+            IPAddress address = new IPAddress(new byte[] { 127, 0, 0, 1 });
+
+            this.TCPListner = new TcpListener(address, PortNumber);
+            this.TCPListner.Start();
+
+            this.Server = ModbusTcpSlave.CreateTcp(1, TCPListner);
+            this.Server.DataStore = DataStore;
             this.Server.Listen();
+
             this.Sampler.Start();
             IsRunning = true;
         }
@@ -349,8 +402,14 @@ namespace PACModbusSimulator
         /// </summary>
         public void Stop()
         {
-            this.Server.StopListening();
-            this.Sampler.Stop();
+            if(IsRunning)
+            {
+                this.Server.Dispose();
+                this.TCPListner.Stop();
+
+                this.Sampler.Stop();
+            }
+
             IsRunning = false;
         }
 
@@ -397,6 +456,7 @@ namespace PACModbusSimulator
         /// </returns>
         private Boolean CheckPortNumber(Int32 portNumber)
         {
+
             foreach (var meter in Simulator.AllMBDevices)
             {
                 if (meter.PortNumber == portNumber && meter != this)

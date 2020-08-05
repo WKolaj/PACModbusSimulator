@@ -216,6 +216,7 @@ namespace PACModbusSimulator
         /// <returns>is portNumber uniq</returns>
         public Boolean CheckNewPortNumber(int portNumber)
         {
+
             foreach(var meter in AllMBDevices)
             {
                 if(meter.PortNumber == portNumber)
@@ -231,7 +232,7 @@ namespace PACModbusSimulator
         /// Method for showing meter window
         /// </summary>
         /// <param name="meter"></param>
-        public void ShowPacWindow(MeterBase meter)
+        public void ShowPacWindow(TCPMeterBase meter)
         {
             PACWindow window = new PACWindow();
             window.Init(meter);
@@ -244,7 +245,7 @@ namespace PACModbusSimulator
         /// <param name="meter">
         /// Meter to start
         /// </param>
-        public void StartMeter(MeterBase meter)
+        public void StartMeter(TCPMeterBase meter)
         {
                 meter.Start();
         }
@@ -253,7 +254,7 @@ namespace PACModbusSimulator
         /// Method for stopping meter
         /// </summary>
         /// <param name="meter"></param>
-        public void StopMeter(MeterBase meter)
+        public void StopMeter(TCPMeterBase meter)
         {
             meter.Stop();
         }

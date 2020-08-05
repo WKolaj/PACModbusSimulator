@@ -20,7 +20,7 @@ namespace PACModbusSimulator
         public Int16Variable(String name, Int32 offset, Boolean shouldInsertToHR = true, Boolean shouldInsertToIR = true, Boolean randomGeneration = false, Boolean autoCalculation = false) :
             base(name, offset, shouldInsertToHR, shouldInsertToIR, randomGeneration, autoCalculation)
         {
-            this.Data = new Int16[] { 0 };
+            this.Data = new UInt16[] { 0 };
         }
 
         private Int16 _randomMax = 0;
@@ -83,7 +83,7 @@ namespace PACModbusSimulator
         /// </summary>
         /// <param name="Data">Data to convert</param>
         /// <returns>Variable value</returns>
-        protected override object ConvertDataToValue(Int16[] Data)
+        protected override object ConvertDataToValue(UInt16[] Data)
         {
             var firstRegisterBytes = BitConverter.GetBytes(Data[0]);
 
@@ -97,11 +97,11 @@ namespace PACModbusSimulator
         /// </summary>
         /// <param name="value">Value to convert</param>
         /// <returns>Modbus registers data</returns>
-        protected override Int16[] ConvertValueToData(object value)
+        protected override UInt16[] ConvertValueToData(object value)
         {
             var allBytes = BitConverter.GetBytes(Convert.ToInt16(value));
 
-            return new Int16[] { BitConverter.ToInt16(allBytes, 0) };
+            return new UInt16[] { BitConverter.ToUInt16(allBytes, 0) };
         }
 
         /// <summary>

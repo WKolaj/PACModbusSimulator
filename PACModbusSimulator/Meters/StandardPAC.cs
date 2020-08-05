@@ -9,7 +9,7 @@ using System.Xml.Linq;
 namespace PACModbusSimulator
 {
 
-    public class StandardPAC : TCPMeterBase
+    public class StandardPAC : MeterBase
     {
         #region constants
 

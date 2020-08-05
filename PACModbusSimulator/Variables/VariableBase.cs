@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using EasyModbus;
 using System.Windows.Controls;
-using Modbus.Data;
 
 namespace PACModbusSimulator
 {
@@ -131,11 +131,11 @@ namespace PACModbusSimulator
             }
         }
 
-        private UInt16[] _data;
+        private Int16[] _data;
         /// <summary>
         /// Modbus variable data - as collection of registers
         /// </summary>
-        public UInt16[] Data
+        public Int16[] Data
         {
             get
             {
@@ -153,14 +153,14 @@ namespace PACModbusSimulator
         /// </summary>
         /// <param name="Data">Data to convert</param>
         /// <returns>Variable value</returns>
-        abstract protected Object ConvertDataToValue(UInt16[] Data);
+        abstract protected Object ConvertDataToValue(Int16[] Data);
 
         /// <summary>
         /// Method for converting value to modbus registers
         /// </summary>
         /// <param name="value">Value to convert</param>
         /// <returns>Modbus registers data</returns>
-        abstract protected UInt16[] ConvertValueToData(Object value);
+        abstract protected Int16[] ConvertValueToData(Object value);
 
         /// <summary>
         /// Method for generating random value
@@ -292,7 +292,7 @@ namespace PACModbusSimulator
         /// <param name="registers">
         /// Modbus holding registers to which variable should be added
         /// </param>
-        public void AssignValueToRegisters(ModbusDataCollection<ushort> registers)
+        public void AssignValueToRegisters(ModbusServer.HoldingRegisters registers)
         {
             for(int i=Offset; i< Offset + Data.Length; i++)
             {
@@ -300,6 +300,19 @@ namespace PACModbusSimulator
             }
         }
 
+        /// <summary>
+        /// Method for assigning value to modbus input registers
+        /// </summary>
+        /// <param name="registers">
+        /// Modbus input registers to which variable should be added
+        /// </param>
+        public void AssignValueToRegisters(ModbusServer.InputRegisters registers)
+        {
+            for (int i = Offset; i < Offset + Data.Length; i++)
+            {
+                registers[i] = Data[i - Offset];
+            }
+        }
 
         /// <summary>
         /// Method for refreshing value of variable based on manual / random / auto mechanism

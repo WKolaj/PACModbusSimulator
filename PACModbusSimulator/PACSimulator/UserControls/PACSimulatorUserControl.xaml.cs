@@ -143,7 +143,7 @@ namespace PACModbusSimulator
             {
                 var button = (Button)sender;
 
-                var meter = (TCPMeterBase)button.DataContext;
+                var meter = (MeterBase)button.DataContext;
 
                 meter.Start();
             }
@@ -164,7 +164,7 @@ namespace PACModbusSimulator
             {
                 var button = (Button)sender;
 
-                var meter = (TCPMeterBase)button.DataContext;
+                var meter = (MeterBase)button.DataContext;
 
                 meter.Stop();
             }

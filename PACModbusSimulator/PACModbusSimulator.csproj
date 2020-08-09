@@ -52,9 +52,6 @@
     <ApplicationIcon>PAC3200.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EasyModbus, Version=5.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EasyModbusTCP.5.5.0\lib\EasyModbus.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -76,7 +73,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Meters\MBDevice\MBDevice.cs" />
+    <Compile Include="Converters\ByteToStringConverter.cs" />
+    <Compile Include="EasyModbus\Exceptions\Exceptions.cs" />
+    <Compile Include="EasyModbus\ModbusClient.cs" />
+    <Compile Include="EasyModbus\ModbusDevice.cs" />
+    <Compile Include="EasyModbus\ModbusFactory.cs" />
+    <Compile Include="EasyModbus\ModbusServer.cs" />
+    <Compile Include="EasyModbus\StoreLogData.cs" />
+    <Compile Include="Meters\ModbusMeter\ModbusMeter.cs" />
     <Compile Include="Meters\PAC4200.cs" />
     <Compile Include="Variables\BitCollectionVariable.cs" />
     <Compile Include="Meters\PAC3220.cs" />
@@ -184,7 +188,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Meters\MBDevice\TCPMeterBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -202,7 +205,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

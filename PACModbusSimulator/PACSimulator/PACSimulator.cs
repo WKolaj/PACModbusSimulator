@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModbusSimulator;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -59,11 +60,11 @@ namespace PACModbusSimulator
             }
         }
 
-        private ObservableCollection<MBDevice> _allMBDevices = new ObservableCollection<MBDevice>();
+        private ObservableCollection<ModbusMeterBase> _allMBDevices = new ObservableCollection<ModbusMeterBase>();
         /// <summary>
         /// All meters associated with Simulator
         /// </summary>
-        public ObservableCollection<MBDevice> AllMBDevices
+        public ObservableCollection<ModbusMeterBase> AllMBDevices
         {
             get
             {
@@ -77,11 +78,11 @@ namespace PACModbusSimulator
             }
         }
 
-        private MBDevice _currentDevice;
+        private ModbusMeterBase _currentDevice;
         /// <summary>
         /// Current meter selected by ListBox
         /// </summary>
-        public MBDevice CurrentDevice
+        public ModbusMeterBase CurrentDevice
         {
             get
             {
@@ -100,11 +101,12 @@ namespace PACModbusSimulator
         /// </summary>
         /// <param name="name">Name of device</param>
         /// <param name="portNumber">Port number</param>
+        /// <param name="unitId">Unit id</param>
         /// <param name="nominalCurrent">Nominal current</param>
         /// <param name="nominialPowerFactor">Nominal power factor</param>
-        public void CreatePAC3200Meter(string name, int portNumber, Single nominalCurrent, Single nominialPowerFactor)
+        public void CreatePAC3200Meter(string name, int portNumber, byte unitId, Single nominalCurrent, Single nominialPowerFactor)
         {
-            AddDevice(new PAC3200(this,name,portNumber, nominalCurrent ,nominialPowerFactor));
+            AddDevice(new PAC3200(this,name,portNumber, unitId, nominalCurrent ,nominialPowerFactor));
         }
 
         /// <summary>
@@ -112,11 +114,12 @@ namespace PACModbusSimulator
         /// </summary>
         /// <param name="name">Name of device</param>
         /// <param name="portNumber">Port number</param>
+        /// <param name="unitId">Unit id</param>
         /// <param name="nominalCurrent">Nominal current</param>
         /// <param name="nominialPowerFactor">Nominal power factor</param>
-        public void CreatePAC3220Meter(string name, int portNumber, Single nominalCurrent, Single nominialPowerFactor)
+        public void CreatePAC3220Meter(string name, int portNumber, byte unitId, Single nominalCurrent, Single nominialPowerFactor)
         {
-            AddDevice(new PAC3220(this, name, portNumber, nominalCurrent, nominialPowerFactor));
+            AddDevice(new PAC3220(this, name, portNumber, unitId, nominalCurrent, nominialPowerFactor));
         }
 
         /// <summary>
@@ -124,18 +127,19 @@ namespace PACModbusSimulator
         /// </summary>
         /// <param name="name">Name of device</param>
         /// <param name="portNumber">Port number</param>
+        /// <param name="unitId">Unit id</param>
         /// <param name="nominalCurrent">Nominal current</param>
         /// <param name="nominialPowerFactor">Nominal power factor</param>
-        public void CreatePAC4200Meter(string name, int portNumber, Single nominalCurrent, Single nominialPowerFactor)
+        public void CreatePAC4200Meter(string name, int portNumber, byte unitId, Single nominalCurrent, Single nominialPowerFactor)
         {
-            AddDevice(new PAC4200(this, name, portNumber, nominalCurrent, nominialPowerFactor));
+            AddDevice(new PAC4200(this, name, portNumber, unitId, nominalCurrent, nominialPowerFactor));
         }
 
         /// <summary>
         /// Method for adding new meter to AllMeters
         /// </summary>
         /// <param name="device">new meter to be added</param>
-        public void AddDevice(MBDevice device)
+        public void AddDevice(ModbusMeterBase device)
         {
             AllMBDevices.Add(device);
             device.MBDeviceSettingsChanged += OnDeviceSettingsChanged;
@@ -177,7 +181,7 @@ namespace PACModbusSimulator
         {
             try
             {
-                if(File.Exists(xmlFileName))
+                if (File.Exists(xmlFileName))
                 {
                     XDocument doc = XDocument.Load(xmlFileName);
 
@@ -196,7 +200,7 @@ namespace PACModbusSimulator
         /// <param name="device">
         /// Meter to remove
         /// </param>
-        public void RemoveDevice(MBDevice device)
+        public void RemoveDevice(ModbusMeterBase device)
         {
             //Stopping meter if started
             if(device.IsRunning)
@@ -213,25 +217,21 @@ namespace PACModbusSimulator
         /// Method for checking if port number of new meter is uniq
         /// </summary>
         /// <param name="portNumber">portNumber to check</param>
+        /// <param name="portNumber">unitId to check</param>
         /// <returns>is portNumber uniq</returns>
-        public Boolean CheckNewPortNumber(int portNumber)
+        public Boolean CheckNewPortNumberAndUnitId(int portNumber, byte unitId)
         {
-            foreach(var meter in AllMBDevices)
-            {
-                if(meter.PortNumber == portNumber)
-                {
-                    return false;
-                }
-            }
+            if (portNumber <= 0 || unitId <= 0) return false;
 
-            return true;
+            //There should be no device with the same combination - unitId/portNumber
+            return ModbusFactory.GetDevice(portNumber, unitId) == null;
         }
 
         /// <summary>
         /// Method for showing meter window
         /// </summary>
         /// <param name="meter"></param>
-        public void ShowPacWindow(MeterBase meter)
+        public void ShowPacWindow(ModbusMeterBase meter)
         {
             PACWindow window = new PACWindow();
             window.Init(meter);
@@ -244,7 +244,7 @@ namespace PACModbusSimulator
         /// <param name="meter">
         /// Meter to start
         /// </param>
-        public void StartMeter(MeterBase meter)
+        public void StartMeter(ModbusMeterBase meter)
         {
                 meter.Start();
         }
@@ -253,7 +253,7 @@ namespace PACModbusSimulator
         /// Method for stopping meter
         /// </summary>
         /// <param name="meter"></param>
-        public void StopMeter(MeterBase meter)
+        public void StopMeter(ModbusMeterBase meter)
         {
             meter.Stop();
         }
@@ -275,22 +275,19 @@ namespace PACModbusSimulator
             {
                 if(element.Name == PAC3200.TypeString)
                 {
-                    var newPAC3200 = new PAC3200(this);
-                    newPAC3200.SetFromXML(element);
+                    var newPAC3200 = new PAC3200(this,element);
 
                     AddDevice(newPAC3200);
                 }
                 else if (element.Name == PAC4200.TypeString)
                 {
-                    var newPAC4200 = new PAC4200(this);
-                    newPAC4200.SetFromXML(element);
+                    var newPAC4200 = new PAC4200(this,element);
 
                     AddDevice(newPAC4200);
                 }
                 else if (element.Name == PAC3220.TypeString)
                 {
-                    var newPAC3220 = new PAC3220(this);
-                    newPAC3220.SetFromXML(element);
+                    var newPAC3220 = new PAC3220(this,element);
 
                     AddDevice(newPAC3220);
                 }

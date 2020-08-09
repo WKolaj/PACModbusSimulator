@@ -70,7 +70,7 @@ namespace PACModbusSimulator
 
                 if ((Boolean)window.ShowDialog())
                 {
-                    CreateMeter(window.SelectedPACType, window.PACName, window.PortNumber, window.NominalCurrent, window.NominalPowerFactor);
+                    CreateMeter(window.SelectedPACType, window.PACName, window.PortNumber, window.UnitId, window.NominalCurrent, window.NominalPowerFactor);
                 }
 
             }
@@ -88,23 +88,23 @@ namespace PACModbusSimulator
         /// <param name="portNumber">Port number of device</param>
         /// <param name="nominalCurrent">Nominal current of device</param>
         /// <param name="nominalPowerFactor">Nominal power factor of device</param>
-        private void CreateMeter(String type, String name, Int32 portNumber, Single nominalCurrent, Single nominalPowerFactor)
+        private void CreateMeter(String type, String name, Int32 portNumber,byte unitId, Single nominalCurrent, Single nominalPowerFactor)
         {
             switch (type)
             {
                 case PACSimulator.pac3200String:
                     {
-                        Simulator.CreatePAC3200Meter(name, portNumber, nominalCurrent, nominalPowerFactor);
+                        Simulator.CreatePAC3200Meter(name, portNumber, unitId, nominalCurrent, nominalPowerFactor);
                         break;
                     }
                 case PACSimulator.pac3220String:
                     {
-                        Simulator.CreatePAC3220Meter(name, portNumber, nominalCurrent, nominalPowerFactor);
+                        Simulator.CreatePAC3220Meter(name, portNumber, unitId, nominalCurrent, nominalPowerFactor);
                         break;
                     }
                 case PACSimulator.pac4200String:
                     {
-                        Simulator.CreatePAC4200Meter(name, portNumber, nominalCurrent, nominalPowerFactor);
+                        Simulator.CreatePAC4200Meter(name, portNumber, unitId, nominalCurrent, nominalPowerFactor);
                         break;
                     }
             }
@@ -143,7 +143,7 @@ namespace PACModbusSimulator
             {
                 var button = (Button)sender;
 
-                var meter = (MeterBase)button.DataContext;
+                var meter = (ModbusMeterBase)button.DataContext;
 
                 meter.Start();
             }
@@ -164,7 +164,7 @@ namespace PACModbusSimulator
             {
                 var button = (Button)sender;
 
-                var meter = (MeterBase)button.DataContext;
+                var meter = (ModbusMeterBase)button.DataContext;
 
                 meter.Stop();
             }

@@ -18,8 +18,8 @@ namespace PACModbusSimulator
     /// </summary>
     public partial class PACWindow : Window
     {
-        private MBDevice _meter;
-        public MBDevice Meter
+        private ModbusMeterBase _meter;
+        public ModbusMeterBase Meter
         {
             get
             {
@@ -51,7 +51,7 @@ namespace PACModbusSimulator
             InitializeComponent();
         }
 
-        public void Init(MBDevice device)
+        public void Init(ModbusMeterBase device)
         {
             this.Meter = device;
 

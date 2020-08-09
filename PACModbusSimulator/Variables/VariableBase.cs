@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
-using EasyModbus;
 using System.Windows.Controls;
+using ModbusSimulator;
 
 namespace PACModbusSimulator
 {
@@ -292,7 +292,7 @@ namespace PACModbusSimulator
         /// <param name="registers">
         /// Modbus holding registers to which variable should be added
         /// </param>
-        public void AssignValueToRegisters(ModbusServer.HoldingRegisters registers)
+        public void AssignValueToRegisters(HoldingRegisters registers)
         {
             for(int i=Offset; i< Offset + Data.Length; i++)
             {
@@ -306,7 +306,7 @@ namespace PACModbusSimulator
         /// <param name="registers">
         /// Modbus input registers to which variable should be added
         /// </param>
-        public void AssignValueToRegisters(ModbusServer.InputRegisters registers)
+        public void AssignValueToRegisters(InputRegisters registers)
         {
             for (int i = Offset; i < Offset + Data.Length; i++)
             {

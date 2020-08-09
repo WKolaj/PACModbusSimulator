@@ -1,4 +1,4 @@
-﻿using EasyModbus;
+﻿using ModbusSimulator;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace PACModbusSimulator
 {
-    public abstract class MBDevice : INotifyPropertyChanged
+    public abstract class ModbusMeterBase : INotifyPropertyChanged
     {
         /// <summary>
         /// Base class of Meter
@@ -17,13 +17,26 @@ namespace PACModbusSimulator
         /// <param name="simulator">Simulator associated with meter</param>
         /// <param name="name">Name of device</param>
         /// <param name="portNumber">Port number of device</param>
-        protected MBDevice(PACSimulator simulator, string name = "", Int32 portNumber = 502)
+        protected ModbusMeterBase(PACSimulator simulator, string name , Int32 portNumber , byte unitId )
         {
             this.Simulator = simulator;
             this.Sampler = new Sampler(this);
-            this.Server = new ModbusServer();
-            this.PortNumber = portNumber;
+            this.Device = ModbusFactory.CreateNewDevice(portNumber, unitId);
             this.Name = name;
+        }
+
+        /// <summary>
+        /// Base class of Meter
+        /// </summary>
+        /// <param name="xElement">
+        /// xElement to create device
+        /// </param>
+        protected ModbusMeterBase(PACSimulator simulator, XElement xElement)
+        {
+            this.Simulator = simulator;
+            this.Sampler = new Sampler(this);
+
+            SetFromXML(xElement);
         }
 
         /// <summary>
@@ -81,6 +94,28 @@ namespace PACModbusSimulator
             }
         }
 
+        /// <summary>
+        /// Port number of meter
+        /// </summary>
+        public Int32 PortNumber
+        {
+            get
+            {
+                return this.Device.Port;
+            }
+        }
+
+        /// <summary>
+        /// Port number of meter
+        /// </summary>
+        public byte UnitId
+        {
+            get
+            {
+                return this.Device.UnitId;
+            }
+        }
+
         private Dictionary<String, VariableBase> _variables = new Dictionary<String, VariableBase>();
         /// <summary>
         /// All variables associated with meter
@@ -110,32 +145,6 @@ namespace PACModbusSimulator
             }
         }
 
-        /// <summary>
-        /// Port number of meter
-        /// </summary>
-        public Int32 PortNumber
-        {
-            get
-            {
-                return this.Server.Port;
-            }
-
-            set
-            {
-                //Checking if such port already exists
-                if (this.CheckPortNumber(value))
-                {
-                    this.Server.Port = value;
-                    OnPropertyChanged("PortNumber");
-                    InvokeSettingsChanged();
-                }
-                else
-                {
-                    //Recursive incrementing - as long as port number is not uniq
-                    this.PortNumber = value + 1;
-                }
-            }
-        }
 
         private Boolean _isRunning = false;
         /// <summary>
@@ -168,21 +177,21 @@ namespace PACModbusSimulator
 
         }
 
-        private ModbusServer _server = null;
+        private ModbusDevice _device = null;
         /// <summary>
         /// Modbus server representing device
         /// </summary>
-        public ModbusServer Server
+        public ModbusDevice Device
         {
             get
             {
-                return _server;
+                return _device;
             }
 
             private set
             {
-                this._server = value;
-                OnPropertyChanged("Server");
+                this._device = value;
+                OnPropertyChanged("ModbusDevice");
             }
         }
 
@@ -225,22 +234,22 @@ namespace PACModbusSimulator
         /// <summary>
         /// Modbus holding registers of device
         /// </summary>
-        public ModbusServer.HoldingRegisters HoldingRegisters
+        public HoldingRegisters HoldingRegisters
         {
             get
             {
-                return Server.holdingRegisters;
+                return Device.holdingRegisters;
             }
         }
 
         /// <summary>
         /// Modbus input registers representing device
         /// </summary>
-        public ModbusServer.InputRegisters InputRegisters
+        public InputRegisters InputRegisters
         {
             get
             {
-                return Server.inputRegisters;
+                return Device.inputRegisters;
             }
         }
 
@@ -339,7 +348,7 @@ namespace PACModbusSimulator
         /// </summary>
         public void Start()
         {
-            this.Server.Listen();
+            this.Device.Enable();
             this.Sampler.Start();
             IsRunning = true;
         }
@@ -349,10 +358,11 @@ namespace PACModbusSimulator
         /// </summary>
         public void Stop()
         {
-            this.Server.StopListening();
+            this.Device.Disable();
             this.Sampler.Stop();
             IsRunning = false;
         }
+
 
         /// <summary>
         /// Setting device from XML content
@@ -362,15 +372,12 @@ namespace PACModbusSimulator
         /// </param>
         public virtual void SetFromXML(XElement element)
         {
-            if (element.Attribute("Name") != null)
-            {
-                this.Name = element.Attribute("Name").Value;
-            }
+            var name = element.Attribute("Name").Value;
+            var portNumber = Convert.ToInt32(element.Attribute("PortNumber").Value);
+            var unitId = Convert.ToByte(element.Attribute("UnitId").Value);
 
-            if (element.Attribute("PortNumber") != null)
-            {
-                this.PortNumber = Convert.ToInt32(element.Attribute("PortNumber").Value);
-            }
+            this.Name = name;
+            this.Device = ModbusFactory.CreateNewDevice(portNumber, unitId);
         }
 
         /// <summary>
@@ -382,32 +389,10 @@ namespace PACModbusSimulator
             XElement elementToReturn = new XElement(TypeName);
             elementToReturn.Add(new XAttribute("Name", this.Name));
             elementToReturn.Add(new XAttribute("PortNumber", this.PortNumber));
+            elementToReturn.Add(new XAttribute("UnitId", this.UnitId));
 
             return elementToReturn;
         }
-
-        /// <summary>
-        /// Method for checking if port number value can be added to meter
-        /// </summary>
-        /// <param name="portNumber">
-        /// Port number of meter
-        /// </param>
-        /// <returns>
-        /// Can port number be assigned to meter
-        /// </returns>
-        private Boolean CheckPortNumber(Int32 portNumber)
-        {
-            foreach (var meter in Simulator.AllMBDevices)
-            {
-                if (meter.PortNumber == portNumber && meter != this)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
 
         /// <summary>
         /// Method for getting user control of meter

@@ -19,7 +19,11 @@ namespace PACModbusSimulator
         /// <param name="portNumber">Port number</param>
         /// <param name="nominalCurrent">Nominal current</param>
         /// <param name="nominalPowerFactor">Nominal power factor</param>
-        public PAC3200(PACSimulator simulator, string name = "", Int32 portNumber = 502, float nominalCurrent = 100, float nominalPowerFactor = 0.8f) : base(simulator, name, portNumber, nominalCurrent,nominalPowerFactor)
+        public PAC3200(PACSimulator simulator, string name = "", Int32 portNumber = 502, Byte unitId = 1, float nominalCurrent = 100, float nominalPowerFactor = 0.8f) : base(simulator, name, portNumber, unitId, nominalCurrent,nominalPowerFactor)
+        {
+        }
+
+        public PAC3200(PACSimulator simulator, XElement xElement) : base(simulator, xElement)
         {
         }
 

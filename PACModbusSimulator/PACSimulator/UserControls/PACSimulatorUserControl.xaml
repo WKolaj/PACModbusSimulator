@@ -9,6 +9,7 @@
     <UserControl.Resources>
         <local:Int32ToStringConverter x:Key="Int32ToStringConverter"/>
         <local:SingleToStringConverter x:Key="SingleToStringConverter"/>
+        <local:ByteToStringConverter x:Key="ByteToStringConverter"/>
     </UserControl.Resources>
     <Border x:Name="mainBorder" BorderThickness="3" BorderBrush="#33344F">
         <Grid x:Name="mainGrid">
@@ -35,7 +36,9 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                             <Label VerticalContentAlignment="Center" Content="Port"    />
-                                            <TextBox VerticalContentAlignment="Center" Text="{Binding Path=PortNumber,Converter={StaticResource Int32ToStringConverter}}" Width="100" Margin="2" IsEnabled="{Binding Path=Editable}"/>
+                                            <TextBox VerticalContentAlignment="Center" Text="{Binding Path=PortNumber,Converter={StaticResource Int32ToStringConverter},Mode=OneWay}" Width="100" Margin="2" IsEnabled="False" IsReadOnly="True"/>
+                                            <Label VerticalContentAlignment="Center" Content="Unit Id"    />
+                                            <TextBox VerticalContentAlignment="Center" Text="{Binding Path=UnitId,Converter={StaticResource ByteToStringConverter},Mode=OneWay}" Width="100" Margin="2" IsEnabled="False" IsReadOnly="True"/>
                                             <Label VerticalContentAlignment="Center" Content="Nominal current [A]"    />
                                             <TextBox VerticalContentAlignment="Center" Text="{Binding Path=NominalCurrent,Converter={StaticResource SingleToStringConverter}}" Width="100" Margin="2" IsEnabled="{Binding Path=Editable}"/>
                                             <Label VerticalContentAlignment="Center" Content="Nominal power factor"    />

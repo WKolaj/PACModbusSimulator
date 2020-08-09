@@ -8,6 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <local:Int32ToStringConverter x:Key="Int32ToStringConverter"/>
+        <local:ByteToStringConverter x:Key="ByteToStringConverter"/>
     </UserControl.Resources>
     <Border x:Name="mainBorder" BorderThickness="3" BorderBrush="#33344F">
         <Grid x:Name="mainGrid">
@@ -33,7 +34,9 @@
                 <Grid x:Name="bottomGrid">
                     <StackPanel x:Name="portNumberStackPanel" Orientation="Horizontal" HorizontalAlignment="Left">
                         <Label x:Name="portLabel" Content="Port number"/>
-                        <TextBox x:Name="portTextBox" Text="{Binding Path=PortNumber,Converter={StaticResource Int32ToStringConverter}}" Width="100" Margin="2" IsEnabled="{Binding Path=Editable}"/>
+                        <TextBox x:Name="portTextBox" Text="{Binding Path=PortNumber,Converter={StaticResource Int32ToStringConverter}, Mode=OneWay}" Width="100" Margin="2" IsEnabled="False" IsReadOnly="True"/>
+                        <Label x:Name="unitIdLabel" Content="UnitId"/>
+                        <TextBox x:Name="unitIdTextBox" Text="{Binding Path=UnitId,Converter={StaticResource ByteToStringConverter}, Mode=OneWay}" Width="100" Margin="2" IsEnabled="False" IsReadOnly="True"/>
                     </StackPanel>
                     <StackPanel x:Name="startStopStackPanel" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button x:Name="startButton" Content="Start" Margin="2" Padding="2" Width="75"  IsEnabled="{Binding Path=Editable}" Click="StartButton_Click"/>

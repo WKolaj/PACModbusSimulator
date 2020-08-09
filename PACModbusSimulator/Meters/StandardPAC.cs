@@ -9,7 +9,7 @@ using System.Xml.Linq;
 namespace PACModbusSimulator
 {
 
-    public class StandardPAC : MeterBase
+    public class StandardPAC : ModbusMeterBase
     {
         #region constants
 
@@ -167,13 +167,20 @@ namespace PACModbusSimulator
         /// <param name="simulator">Simulator object</param>
         /// <param name="name">Name of PAC meter</param>
         /// <param name="portNumber">Port number</param>
+        /// <param name="unitId">UnitID</param>
         /// <param name="nominalCurrent">Nominal current</param>
         /// <param name="nominalPowerFactor">Nominal power factor</param>
-        public StandardPAC(PACSimulator simulator, string name, Int32 portNumber = 502, float nominalCurrent = 100, float nominalPowerFactor = 0.8f) : base(simulator, name, portNumber)
+        public StandardPAC(PACSimulator simulator, string name, Int32 portNumber = 502,Byte unitId = 1, float nominalCurrent = 100, float nominalPowerFactor = 0.8f) : base(simulator, name, portNumber, unitId)
         {
             this.NominalCurrent = nominalCurrent;
             this.NominalPowerFactor = nominalPowerFactor;
 
+            AssignVariables();
+            InitVariableMechanism();
+        }
+
+        public StandardPAC(PACSimulator simulator, XElement xElement) : base(simulator, xElement)
+        {
             AssignVariables();
             InitVariableMechanism();
         }

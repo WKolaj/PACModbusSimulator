@@ -5,14 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PACModbusSimulator"
         mc:Ignorable="d"
-        Title="Add new PAC meter" ResizeMode="NoResize" Height="400" Width="225" Icon="/PACModbusSimulator;component/PAC3200.ico" >
+        Title="Add new PAC meter" ResizeMode="NoResize" Height="500" Width="225" Icon="/PACModbusSimulator;component/PAC3200.ico" >
     <Window.Resources>
         <local:Int32ToStringConverter x:Key="Int32ToStringConverter"/>
         <local:SingleToStringConverter x:Key="SingleToStringConverter"/>
+        <local:ByteToStringConverter x:Key="ByteToStringConverter"/>
     </Window.Resources>
     <Border x:Name="mainBorder" BorderThickness="3" BorderBrush="#33344F">
         <Grid x:Name="mainGrid">
             <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -37,15 +40,18 @@
 
             <Label Grid.Row="4" Grid.ColumnSpan="2" x:Name="portNameLabel" Content="Port number" Margin="5,5,5,0" VerticalContentAlignment="Bottom"/>
             <TextBox  VerticalContentAlignment="Center" Grid.Row="5"  Padding="2" Grid.ColumnSpan="2" x:Name="portNameTextBox" Margin="5" Text="{Binding Path=PortNumber, Converter={StaticResource Int32ToStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-            
-            <Label Grid.Row="6" Grid.ColumnSpan="2" x:Name="nominalCurrentNameLabel" Content="Nominal current [A]" Margin="5,5,5,0" VerticalContentAlignment="Bottom"/>
-            <TextBox VerticalContentAlignment="Center" Grid.Row="7"  Padding="2" Grid.ColumnSpan="2" x:Name="nominalCurrentNameTextBox" Margin="5" Text="{Binding Path=NominalCurrent, Converter={StaticResource SingleToStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Grid.Row="8" Grid.ColumnSpan="2" x:Name="nominalPowerFactorNameLabel" Content="Nominal power factor" Margin="5,5,5,0" VerticalContentAlignment="Bottom"/>
-            <TextBox  VerticalContentAlignment="Center" Grid.Row="9" Padding="2" Grid.ColumnSpan="2" x:Name="nominalPowerFactorNameTextBox" Margin="5" Text="{Binding Path=NominalPowerFactor, Converter={StaticResource SingleToStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Row="6" Grid.ColumnSpan="2" x:Name="unitIdNameLabel" Content="Unit Id" Margin="5,5,5,0" VerticalContentAlignment="Bottom"/>
+            <TextBox  VerticalContentAlignment="Center" Grid.Row="7"  Padding="2" Grid.ColumnSpan="2" x:Name="unitIdTextBox" Margin="5" Text="{Binding Path=UnitId, Converter={StaticResource ByteToStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Button x:Name="addButton" IsEnabled="{Binding Path=Ready}" Grid.Row="10" Grid.Column="0" Content="Add new meter" Margin="5" Click="AddButton_Click"/>
-            <Button x:Name="cancelButton" Grid.Row="10" Grid.Column="1" Content="Cancel" Margin="5" Click="CancelButton_Click"/>
+            <Label Grid.Row="8" Grid.ColumnSpan="2" x:Name="nominalCurrentNameLabel" Content="Nominal current [A]" Margin="5,5,5,0" VerticalContentAlignment="Bottom"/>
+            <TextBox VerticalContentAlignment="Center" Grid.Row="9"  Padding="2" Grid.ColumnSpan="2" x:Name="nominalCurrentNameTextBox" Margin="5" Text="{Binding Path=NominalCurrent, Converter={StaticResource SingleToStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Grid.Row="10" Grid.ColumnSpan="2" x:Name="nominalPowerFactorNameLabel" Content="Nominal power factor" Margin="5,5,5,0" VerticalContentAlignment="Bottom"/>
+            <TextBox  VerticalContentAlignment="Center" Grid.Row="11" Padding="2" Grid.ColumnSpan="2" x:Name="nominalPowerFactorNameTextBox" Margin="5" Text="{Binding Path=NominalPowerFactor, Converter={StaticResource SingleToStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Button x:Name="addButton" IsEnabled="{Binding Path=Ready}" Grid.Row="12" Grid.Column="0" Content="Add new meter" Margin="5" Click="AddButton_Click"/>
+            <Button x:Name="cancelButton" Grid.Row="12" Grid.Column="1" Content="Cancel" Margin="5" Click="CancelButton_Click"/>
         </Grid>
     </Border>
 </Window>

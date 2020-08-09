@@ -121,6 +121,25 @@ namespace PACModbusSimulator
             }
         }
 
+        private byte _unitId;
+        /// <summary>
+        /// Port number of device to be added
+        /// </summary>
+        public byte UnitId
+        {
+            get
+            {
+                return _unitId;
+            }
+
+            set
+            {
+                this._unitId = value;
+                OnPropertyChanged("UnitId");
+                OnPropertyChanged("Ready");
+            }
+        }
+
         private Single _nominalCurrent;
         /// <summary>
         /// Nominal current of device to be added
@@ -210,7 +229,7 @@ namespace PACModbusSimulator
         {
             if (String.IsNullOrEmpty(PACName)) return false;
             if (PortNumber <= 0) return false;
-            if (!Simulator.CheckNewPortNumber(PortNumber)) return false;
+            if (!Simulator.CheckNewPortNumberAndUnitId(PortNumber, UnitId)) return false;
             if (NominalCurrent <= 0) return false;
             if (NominalPowerFactor <= 0) return false;
 

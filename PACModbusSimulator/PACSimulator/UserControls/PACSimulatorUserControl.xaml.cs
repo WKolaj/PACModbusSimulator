@@ -102,6 +102,16 @@ namespace PACModbusSimulator
                         Simulator.CreatePAC3220Meter(name, portNumber, unitId, nominalCurrent, nominalPowerFactor);
                         break;
                     }
+                case PACSimulator.pac3100String:
+                    {
+                        Simulator.CreatePAC3100Meter(name, portNumber, unitId, nominalCurrent, nominalPowerFactor);
+                        break;
+                    }
+                case PACSimulator.pac3120String:
+                    {
+                        Simulator.CreatePAC3120Meter(name, portNumber, unitId, nominalCurrent, nominalPowerFactor);
+                        break;
+                    }
                 case PACSimulator.pac4200String:
                     {
                         Simulator.CreatePAC4200Meter(name, portNumber, unitId, nominalCurrent, nominalPowerFactor);

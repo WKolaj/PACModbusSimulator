@@ -37,6 +37,16 @@ namespace PACModbusSimulator
         public const String pac3220String = "PAC3220";
 
         /// <summary>
+        /// String representing PAC3100 meter
+        /// </summary>
+        public const String pac3100String = "PAC3100";
+
+        /// <summary>
+        /// String representing PAC3120 meter
+        /// </summary>
+        public const String pac3120String = "PAC3120";
+
+        /// <summary>
         /// String representing PAC4200 meter
         /// </summary>
         public const String pac4200String = "PAC4200";
@@ -120,6 +130,32 @@ namespace PACModbusSimulator
         public void CreatePAC3220Meter(string name, int portNumber, byte unitId, Single nominalCurrent, Single nominialPowerFactor)
         {
             AddDevice(new PAC3220(this, name, portNumber, unitId, nominalCurrent, nominialPowerFactor));
+        }
+
+        /// <summary>
+        /// Method for creating new PAC3100 meter and adding it to AllMeters
+        /// </summary>
+        /// <param name="name">Name of device</param>
+        /// <param name="portNumber">Port number</param>
+        /// <param name="unitId">Unit id</param>
+        /// <param name="nominalCurrent">Nominal current</param>
+        /// <param name="nominialPowerFactor">Nominal power factor</param>
+        public void CreatePAC3100Meter(string name, int portNumber, byte unitId, Single nominalCurrent, Single nominialPowerFactor)
+        {
+            AddDevice(new PAC3100(this, name, portNumber, unitId, nominalCurrent, nominialPowerFactor));
+        }
+
+        /// <summary>
+        /// Method for creating new PAC3120 meter and adding it to AllMeters
+        /// </summary>
+        /// <param name="name">Name of device</param>
+        /// <param name="portNumber">Port number</param>
+        /// <param name="unitId">Unit id</param>
+        /// <param name="nominalCurrent">Nominal current</param>
+        /// <param name="nominialPowerFactor">Nominal power factor</param>
+        public void CreatePAC3120Meter(string name, int portNumber, byte unitId, Single nominalCurrent, Single nominialPowerFactor)
+        {
+            AddDevice(new PAC3120(this, name, portNumber, unitId, nominalCurrent, nominialPowerFactor));
         }
 
         /// <summary>
@@ -290,6 +326,18 @@ namespace PACModbusSimulator
                     var newPAC3220 = new PAC3220(this,element);
 
                     AddDevice(newPAC3220);
+                }
+                else if (element.Name == PAC3100.TypeString)
+                {
+                    var newPAC3100 = new PAC3100(this, element);
+
+                    AddDevice(newPAC3100);
+                }
+                else if (element.Name == PAC3120.TypeString)
+                {
+                    var newPAC3120 = new PAC3120(this, element);
+
+                    AddDevice(newPAC3120);
                 }
             }
         }

@@ -82,6 +82,8 @@
     <Compile Include="EasyModbus\StoreLogData.cs" />
     <Compile Include="Meters\ModbusMeter\ModbusMeter.cs" />
     <Compile Include="Meters\PAC4200.cs" />
+    <Compile Include="Meters\PAC3100.cs" />
+    <Compile Include="Meters\PAC3120.cs" />
     <Compile Include="Variables\BitCollectionVariable.cs" />
     <Compile Include="Meters\PAC3220.cs" />
     <Compile Include="PACSimulator\UserControls\PACSimulatorUserControl.xaml.cs">

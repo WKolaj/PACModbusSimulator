@@ -211,6 +211,8 @@ namespace PACModbusSimulator
             {
                 PACSimulator.pac3200String,
                 PACSimulator.pac3220String,
+                PACSimulator.pac3100String,
+                PACSimulator.pac3120String,
                 PACSimulator.pac4200String
             };
 
